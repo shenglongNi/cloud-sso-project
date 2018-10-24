@@ -7,11 +7,14 @@ import org.jasig.cas.authentication.Credential;
 import org.jasig.cas.authentication.HandlerResult;
 import org.jasig.cas.authentication.PreventedException;
 import org.jasig.cas.authentication.UsernamePasswordCredential;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 @Component
 public class MobileAuthenticationHandler extends AbstractAuthenticationHandler {
 
+	
 	@Override
 	public HandlerResult authenticate(Credential credential)
 			throws GeneralSecurityException, PreventedException {
