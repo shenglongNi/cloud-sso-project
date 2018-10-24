@@ -1,8 +1,9 @@
 package sso.cloud.service.config;
 
 import org.jasig.cas.CentralAuthenticationService;
-import org.jasig.cas.CentralAuthenticationServiceImpl;
+import org.jasig.cas.authentication.AuthenticationHandler;
 import org.jasig.cas.authentication.AuthenticationManager;
+import org.jasig.cas.authentication.PolicyBasedAuthenticationManager;
 import org.jasig.cas.ticket.registry.DefaultTicketRegistry;
 import org.jasig.cas.ticket.registry.TicketRegistry;
 import org.springframework.context.annotation.Bean;
@@ -32,8 +33,9 @@ public class CasBeanConfig {
 		return new DefaultTicketRegistry();
 	}
 	
-	public AuthenticationManager getAuthenticationManager() {
-		return null;
+	public AuthenticationManager getAuthenticationManager(AuthenticationHandler mobileAuthenticationHandler) {
+		AuthenticationManager authManager = new PolicyBasedAuthenticationManager(mobileAuthenticationHandler);
+		return authManager;
 	}
 	
 }

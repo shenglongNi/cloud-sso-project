@@ -9,10 +9,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class SingleSignOnAction {
-
+	
 	
 	@GetMapping(path="/login")
-	public String login(HttpServletRequest request, HttpServletResponse response, @CookieValue String ticketGrantingTiket) {
+	public String login(HttpServletRequest request,
+			HttpServletResponse response,
+			@CookieValue String ticketGrantingTiket) {
+
 		
 		return null;
 	}
