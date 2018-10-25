@@ -18,6 +18,34 @@
 				<groupId>org.apache.logging.log4j</groupId>
 				<artifactId>log4j-slf4j-impl</artifactId>
 			</exclusion>
+			<exclusion>
+				<groupId>log4j</groupId>
+				<artifactId>log4j</artifactId>
+			</exclusion>
+			<exclusion>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-log4j12</artifactId>
+			</exclusion>
+			<exclusion>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-core</artifactId>
+			</exclusion>
+			<exclusion>
+				<groupId>org.opensaml</groupId>
+				<artifactId>openws</artifactId>
+			</exclusion>
+			<exclusion>
+				<artifactId>log4j-core</artifactId>
+				<groupId>org.apache.logging.log4j</groupId>
+			</exclusion>
+			<exclusion>
+				<artifactId>log4j-jcl</artifactId>
+				<groupId>org.apache.logging.log4j</groupId>
+			</exclusion>
+			<exclusion>
+				<artifactId>log4j-api</artifactId>
+				<groupId>org.apache.logging.log4j</groupId>
+			</exclusion>
 		</exclusions>
 	</dependency>
 	
@@ -26,20 +54,6 @@
 		<groupId>junit</groupId>
 		<artifactId>junit</artifactId>
 	</dependency>
-	<dependency>
-		<groupId>org.apache.logging.log4j</groupId>
-		<artifactId>log4j-slf4j-impl</artifactId>
-	</dependency>
 	
-	<dependency>
-  		<groupId>ch.qos.logback</groupId>
-  		<artifactId>logback-classic</artifactId>
-  		<version>1.2.3</version>
-  	</dependency>
-  	<dependency>
-  		<groupId>ch.qos.logback</groupId>
-  		<artifactId>logback-core</artifactId>
-  		<version>1.2.3</version>
-  	</dependency>
   </dependencies>
 </project>

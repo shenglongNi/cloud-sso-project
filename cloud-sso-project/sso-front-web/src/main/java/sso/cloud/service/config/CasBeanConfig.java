@@ -1,58 +1,82 @@
 package sso.cloud.service.config;
 
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.FutureRequestExecutionService;
 import org.jasig.cas.CentralAuthenticationService;
+import org.jasig.cas.CentralAuthenticationServiceImpl;
 import org.jasig.cas.authentication.AuthenticationHandler;
 import org.jasig.cas.authentication.AuthenticationManager;
 import org.jasig.cas.authentication.PolicyBasedAuthenticationManager;
+import org.jasig.cas.authentication.principal.SimpleWebApplicationServiceImpl;
+import org.jasig.cas.logout.LogoutManager;
+import org.jasig.cas.logout.LogoutManagerImpl;
+import org.jasig.cas.logout.SamlCompliantLogoutMessageCreator;
 import org.jasig.cas.services.DefaultRegisteredServiceAccessStrategy;
+import org.jasig.cas.services.DefaultServicesManagerImpl;
 import org.jasig.cas.services.InMemoryServiceRegistryDaoImpl;
 import org.jasig.cas.services.RegexRegisteredService;
 import org.jasig.cas.services.RegisteredService;
 import org.jasig.cas.services.ServiceRegistryDao;
+import org.jasig.cas.services.ServicesManager;
 import org.jasig.cas.ticket.registry.DefaultTicketRegistry;
 import org.jasig.cas.ticket.registry.TicketRegistry;
 import org.jasig.cas.ticket.support.HardTimeoutExpirationPolicy;
 import org.jasig.cas.ticket.support.TicketGrantingTicketExpirationPolicy;
 import org.jasig.cas.util.DefaultUniqueTicketIdGenerator;
 import org.jasig.cas.util.UniqueTicketIdGenerator;
+import org.jasig.cas.util.http.HttpClient;
+import org.jasig.cas.util.http.SimpleHttpClientFactoryBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.google.common.collect.Lists;
-
 import sso.cloud.authentication.handler.MobileAuthenticationHandler;
+
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Lists;
 
 @Configuration
 public class CasBeanConfig {
 
 	private Logger logger = LoggerFactory.getLogger(MobileAuthenticationHandler.class);
 	@Bean
-	public CentralAuthenticationService getCentralAuthenticationService(TicketRegistry ticketRegistry) {
-//		CentralAuthenticationService authenticationService = new CentralAuthenticationServiceImpl(
-//				ticketRegistry, 
-//				authenticationManager, 
-//				ticketGrantingTicketUniqueTicketIdGenerator, 
-//				uniqueTicketIdGeneratorsForService, 
-//				ticketGrantingTicketExpirationPolicy, 
-//				serviceTicketExpirationPolicy, 
-//				servicesManager, 
-//				logoutManager);
+	public CentralAuthenticationService getCentralAuthenticationService(
+			TicketRegistry ticketRegistry,
+			AuthenticationManager authenticationManager,
+			UniqueTicketIdGenerator ticketGrantingTicketUniqueTicketIdGenerator,
+			Map<String, UniqueTicketIdGenerator> uniqueTicketIdGeneratorsForService,
+			TicketGrantingTicketExpirationPolicy ticketGrantingTicketExpirationPolicy,
+			HardTimeoutExpirationPolicy serviceTicketExpirationPolicy,
+			ServicesManager servicesManager,
+			LogoutManager logoutManager
+			
+			
+			) {
+		CentralAuthenticationService authenticationService = new CentralAuthenticationServiceImpl(
+				ticketRegistry, 
+				authenticationManager, 
+				ticketGrantingTicketUniqueTicketIdGenerator, 
+				uniqueTicketIdGeneratorsForService, 
+				ticketGrantingTicketExpirationPolicy, 
+				serviceTicketExpirationPolicy, 
+				servicesManager, 
+				logoutManager);
 		
 		return null ;
 	}
 	
 	@Bean
-	public TicketRegistry getTicketRegistry() {
+	public TicketRegistry ticketRegistry() {
 		
 		return new DefaultTicketRegistry();
 	}
 	
 	@Bean
-	public AuthenticationManager getAuthenticationManager(AuthenticationHandler mobileAuthenticationHandler) {
+	public AuthenticationManager authenticationManager(AuthenticationHandler mobileAuthenticationHandler) {
 		AuthenticationManager authManager = new PolicyBasedAuthenticationManager(mobileAuthenticationHandler);
 		return authManager;
 	}
@@ -61,6 +85,11 @@ public class CasBeanConfig {
 	public UniqueTicketIdGenerator ticketIdGenerator() {
 		logger.info("====init successful");
 		return new DefaultUniqueTicketIdGenerator(); 
+	}
+	
+	@Bean
+	public Map<String, UniqueTicketIdGenerator> uniqueTicketIdGeneratorsForService(UniqueTicketIdGenerator UniqueTicketIdGenerator) {
+		return ImmutableMap.of(SimpleWebApplicationServiceImpl.class.getName(), UniqueTicketIdGenerator);
 	}
 	
 	//maxTimeToLive 8h ,timeToKill 2h
@@ -79,6 +108,9 @@ public class CasBeanConfig {
 		InMemoryServiceRegistryDaoImpl serviceRegistryDao = new InMemoryServiceRegistryDaoImpl();
 		RegexRegisteredService registeredService = new  RegexRegisteredService();
 		registeredService.setServiceId("localhost");
+		registeredService.setId(1);
+		registeredService.setEvaluationOrder(1);
+		registeredService.setName("localhost");
 		
 		DefaultRegisteredServiceAccessStrategy accessStrategy = new DefaultRegisteredServiceAccessStrategy();
 		accessStrategy.setEnabled(true);
@@ -86,5 +118,29 @@ public class CasBeanConfig {
 		registeredService.setAccessStrategy(accessStrategy);
 		serviceRegistryDao.setRegisteredServices(Lists.<RegisteredService>newArrayList(registeredService));
 		return serviceRegistryDao;
+	}
+	
+	@Bean
+	public ServicesManager servicesManager(ServiceRegistryDao serviceRegistryDao) {
+		
+		ServicesManager serviceManager = new DefaultServicesManagerImpl(serviceRegistryDao);
+		
+		return serviceManager;
+	}
+	
+	@Bean
+	public LogoutManager logoutManager(ServicesManager servicesManager, HttpClient httpClient, SamlCompliantLogoutMessageCreator logoutMessageCreator) {
+		
+		return new LogoutManagerImpl(servicesManager, httpClient, logoutMessageCreator);
+	}
+	
+	@Bean
+	public SamlCompliantLogoutMessageCreator logoutMessageCreator() {
+		return new SamlCompliantLogoutMessageCreator();
+	}
+	
+	@Bean
+	public HttpClient casHttpClient() throws Exception {
+		return new SimpleHttpClientFactoryBean().getObject();
 	}
 }
