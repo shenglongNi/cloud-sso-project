@@ -3,13 +3,12 @@ package sso.cloud.service.config;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.FutureRequestExecutionService;
 import org.jasig.cas.CentralAuthenticationService;
 import org.jasig.cas.CentralAuthenticationServiceImpl;
 import org.jasig.cas.authentication.AuthenticationHandler;
 import org.jasig.cas.authentication.AuthenticationManager;
 import org.jasig.cas.authentication.PolicyBasedAuthenticationManager;
+import org.jasig.cas.authentication.principal.PrincipalResolver;
 import org.jasig.cas.authentication.principal.SimpleWebApplicationServiceImpl;
 import org.jasig.cas.logout.LogoutManager;
 import org.jasig.cas.logout.LogoutManagerImpl;
@@ -35,14 +34,17 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import sso.cloud.authentication.handler.MobileAuthenticationHandler;
+import sso.core.authentication.principal.resolver.CustomPrincipalResolver;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 
 @Configuration
 public class CasBeanConfig {
 
 	private Logger logger = LoggerFactory.getLogger(MobileAuthenticationHandler.class);
+
 	@Bean
 	public CentralAuthenticationService getCentralAuthenticationService(
 			TicketRegistry ticketRegistry,
@@ -51,22 +53,17 @@ public class CasBeanConfig {
 			Map<String, UniqueTicketIdGenerator> uniqueTicketIdGeneratorsForService,
 			TicketGrantingTicketExpirationPolicy ticketGrantingTicketExpirationPolicy,
 			HardTimeoutExpirationPolicy serviceTicketExpirationPolicy,
-			ServicesManager servicesManager,
-			LogoutManager logoutManager
-			
-			
-			) {
+			ServicesManager servicesManager, LogoutManager logoutManager
+
+	) {
 		CentralAuthenticationService authenticationService = new CentralAuthenticationServiceImpl(
-				ticketRegistry, 
-				authenticationManager, 
-				ticketGrantingTicketUniqueTicketIdGenerator, 
-				uniqueTicketIdGeneratorsForService, 
-				ticketGrantingTicketExpirationPolicy, 
-				serviceTicketExpirationPolicy, 
-				servicesManager, 
-				logoutManager);
-		
-		return null ;
+				ticketRegistry, authenticationManager,
+				ticketGrantingTicketUniqueTicketIdGenerator,
+				uniqueTicketIdGeneratorsForService,
+				ticketGrantingTicketExpirationPolicy,
+				serviceTicketExpirationPolicy, servicesManager, logoutManager);
+
+		return authenticationService;
 	}
 	
 	@Bean
@@ -77,7 +74,9 @@ public class CasBeanConfig {
 	
 	@Bean
 	public AuthenticationManager authenticationManager(AuthenticationHandler mobileAuthenticationHandler) {
-		AuthenticationManager authManager = new PolicyBasedAuthenticationManager(mobileAuthenticationHandler);
+		Map<AuthenticationHandler, PrincipalResolver> handlerResolverMap = Maps.newHashMap();
+		handlerResolverMap.put(mobileAuthenticationHandler, new CustomPrincipalResolver());
+		AuthenticationManager authManager = new PolicyBasedAuthenticationManager(handlerResolverMap);
 		return authManager;
 	}
 	
@@ -106,17 +105,26 @@ public class CasBeanConfig {
 	@Bean
 	public ServiceRegistryDao serviceRegistryDao() {
 		InMemoryServiceRegistryDaoImpl serviceRegistryDao = new InMemoryServiceRegistryDaoImpl();
-		RegexRegisteredService registeredService = new  RegexRegisteredService();
-		registeredService.setServiceId("localhost");
-		registeredService.setId(1);
-		registeredService.setEvaluationOrder(1);
-		registeredService.setName("localhost");
+		//TODO 此处需要扩展自定义的RegisteredService
+		RegexRegisteredService registeredService1 = new  RegexRegisteredService();
+		registeredService1.setServiceId("localhost");
+		registeredService1.setId(1);
+		registeredService1.setEvaluationOrder(1);
+		registeredService1.setName("localhost");
+		
+		RegexRegisteredService registeredService2 = new  RegexRegisteredService();
+		registeredService2.setServiceId("http://localhost:8080/test/shiro-cas");
+		registeredService2.setId(1);
+		registeredService2.setEvaluationOrder(1);
+		registeredService2.setName("localhost");
 		
 		DefaultRegisteredServiceAccessStrategy accessStrategy = new DefaultRegisteredServiceAccessStrategy();
 		accessStrategy.setEnabled(true);
 		accessStrategy.setSsoEnabled(true);
-		registeredService.setAccessStrategy(accessStrategy);
-		serviceRegistryDao.setRegisteredServices(Lists.<RegisteredService>newArrayList(registeredService));
+		registeredService1.setAccessStrategy(accessStrategy);
+		registeredService2.setAccessStrategy(accessStrategy);
+		
+		serviceRegistryDao.setRegisteredServices(Lists.<RegisteredService>newArrayList(registeredService1, registeredService2));
 		return serviceRegistryDao;
 	}
 	
