@@ -1,5 +1,6 @@
 package sso.cloud.service.config;
 
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -28,17 +29,19 @@ import org.jasig.cas.util.DefaultUniqueTicketIdGenerator;
 import org.jasig.cas.util.UniqueTicketIdGenerator;
 import org.jasig.cas.util.http.HttpClient;
 import org.jasig.cas.util.http.SimpleHttpClientFactoryBean;
+import org.jasig.cas.web.support.ArgumentExtractor;
+import org.jasig.cas.web.support.CasArgumentExtractor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import sso.cloud.authentication.handler.MobileAuthenticationHandler;
-import sso.core.authentication.principal.resolver.CustomPrincipalResolver;
-
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+
+import sso.cloud.authentication.handler.MobileAuthenticationHandler;
+import sso.core.authentication.principal.resolver.CustomPrincipalResolver;
 
 @Configuration
 public class CasBeanConfig {
@@ -150,5 +153,16 @@ public class CasBeanConfig {
 	@Bean
 	public HttpClient casHttpClient() throws Exception {
 		return new SimpleHttpClientFactoryBean().getObject();
+	}
+	
+	/**
+	 * CAS 默认的ArgumentExtractor 实现CasArgumentExtractor， 在分布式系统中，相同的应用实例部署在不同的服务器上， 
+	 * 访问时通过域名，前端负载后选择其中一个实例。 此时若要登出，则需要扩展ArgumentExtractor， 保存场景端的服务ip，
+	 * 登出时，通过IP:PORT 回调应用
+	 * @return
+	 */
+	@Bean
+	public List<ArgumentExtractor> casArgumentExtractors() {
+		return Lists.newArrayList((ArgumentExtractor) new CasArgumentExtractor());
 	}
 }
