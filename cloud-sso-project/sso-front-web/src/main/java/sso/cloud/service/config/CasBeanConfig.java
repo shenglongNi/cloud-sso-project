@@ -42,6 +42,7 @@ import com.google.common.collect.Maps;
 
 import sso.cloud.authentication.handler.MobileAuthenticationHandler;
 import sso.core.authentication.principal.resolver.CustomPrincipalResolver;
+import sso.core.authentication.service.registry.UrlBasedRegisteredService;
 
 @Configuration
 public class CasBeanConfig {
@@ -105,18 +106,19 @@ public class CasBeanConfig {
 		return new HardTimeoutExpirationPolicy(5 * 60, TimeUnit.SECONDS);
 	}
 	
+	
 	@Bean
-	public ServiceRegistryDao serviceRegistryDao() {
+	public ServiceRegistryDao serviceRegistryDao(RegisteredService registeredService) {
 		InMemoryServiceRegistryDaoImpl serviceRegistryDao = new InMemoryServiceRegistryDaoImpl();
 		//TODO 此处需要扩展自定义的RegisteredService
-		RegexRegisteredService registeredService1 = new  RegexRegisteredService();
-		registeredService1.setServiceId("localhost");
+//		RegexRegisteredService registeredService1 = new  RegexRegisteredService();
+		/*registeredService1.setServiceId("localhost");
 		registeredService1.setId(1);
 		registeredService1.setEvaluationOrder(1);
 		registeredService1.setName("localhost");
 		
 		RegexRegisteredService registeredService2 = new  RegexRegisteredService();
-		registeredService2.setServiceId("http://localhost:8080/test/shiro-cas");
+		registeredService2.setServiceId("http://localhost:8080/idm/test");
 		registeredService2.setId(1);
 		registeredService2.setEvaluationOrder(1);
 		registeredService2.setName("localhost");
@@ -125,10 +127,28 @@ public class CasBeanConfig {
 		accessStrategy.setEnabled(true);
 		accessStrategy.setSsoEnabled(true);
 		registeredService1.setAccessStrategy(accessStrategy);
-		registeredService2.setAccessStrategy(accessStrategy);
+		registeredService2.setAccessStrategy(accessStrategy);*/
 		
-		serviceRegistryDao.setRegisteredServices(Lists.<RegisteredService>newArrayList(registeredService1, registeredService2));
+		serviceRegistryDao.setRegisteredServices(Lists.<RegisteredService>newArrayList(registeredService));
 		return serviceRegistryDao;
+	}
+	
+	/**
+	 * 扩展RegisteredService， 可信域名白名单UrlBasedRegisteredService
+	 * @return
+	 */
+	@Bean
+	public RegisteredService registeredService() {
+		UrlBasedRegisteredService registeredService = new UrlBasedRegisteredService();
+		DefaultRegisteredServiceAccessStrategy accessStrategy = new DefaultRegisteredServiceAccessStrategy();
+		accessStrategy.setEnabled(true);
+		accessStrategy.setSsoEnabled(true);
+		registeredService.setAccessStrategy(accessStrategy);
+		registeredService.setAllowServiceDomains(Lists.newArrayList("localhost"));
+		registeredService.setName("");
+		registeredService.setEvaluationOrder(1);
+		registeredService.setServiceId("");
+		return registeredService;
 	}
 	
 	@Bean

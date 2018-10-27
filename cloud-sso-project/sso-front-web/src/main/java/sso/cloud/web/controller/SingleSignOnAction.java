@@ -9,11 +9,16 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.StringUtils;
 import org.jasig.cas.CentralAuthenticationService;
+import org.jasig.cas.authentication.AuthenticationException;
+import org.jasig.cas.authentication.Credential;
 import org.jasig.cas.authentication.RootCasException;
+import org.jasig.cas.authentication.UsernamePasswordCredential;
 import org.jasig.cas.authentication.principal.Response;
 import org.jasig.cas.authentication.principal.Service;
 import org.jasig.cas.authentication.principal.WebApplicationService;
 import org.jasig.cas.ticket.ServiceTicket;
+import org.jasig.cas.ticket.TicketException;
+import org.jasig.cas.ticket.TicketGrantingTicket;
 import org.jasig.cas.web.support.ArgumentExtractor;
 import org.jasig.cas.web.support.WebUtils;
 import org.slf4j.Logger;
@@ -27,6 +32,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class SingleSignOnAction {
 	
 	
+	private static final String DEFAULT_LOGIN_SUCCESS_PAGE = "default_success";
+
 	private static Logger logger = LoggerFactory.getLogger(SingleSignOnAction.class);
 	
 	private static final String LOGIN_PAGE = "login";
@@ -36,7 +43,7 @@ public class SingleSignOnAction {
 	
 	@Autowired
 	private CentralAuthenticationService centralAuthenticationService;
-	
+
 	@RequestMapping("/login")
 	public String login(HttpServletRequest request,
 			HttpServletResponse response,
@@ -74,5 +81,43 @@ public class SingleSignOnAction {
 		return LOGIN_PAGE;
 	}
 	
+	
+	@RequestMapping("/auth")
+	public String loginSubmint(HttpServletRequest request, HttpServletResponse response, String username,
+			String password) {
+		username = "nsl";
+		password = "111111";
+		HttpSession session = request.getSession();
+		logger.info("用户登录认证开始, 当前sessionId:{}", session.getId());
+		Credential credential = new UsernamePasswordCredential(username, password);
+		
+		Service service = (Service) session.getAttribute("service");
+		
+		TicketGrantingTicket ticketGrantingTicket = null;
+		ServiceTicket serviceTicket = null;
+		Response casResponse = null;
+		try {
+			ticketGrantingTicket = centralAuthenticationService.createTicketGrantingTicket(credential);
+			logger.info("用户[{}] TGT生成成功：{}", username, ticketGrantingTicket.getId());
+			Cookie cookie = new Cookie("CASTGC", ticketGrantingTicket.getId());
+			cookie.setPath("/idm");
+			response.addCookie(cookie);
+			
+			serviceTicket = centralAuthenticationService.grantServiceTicket(ticketGrantingTicket.getId(), service);
+			logger.info("用户[{}] ST生成成功：{}", username, serviceTicket.getId());
+			if(service != null) {
+				casResponse = ((WebApplicationService) service).getResponse(serviceTicket.getId());
+				logger.info("[{}] 用户登录认证成功， 重定向目标地址：{}", username, casResponse.getUrl());
+				return "redirect:" + casResponse.getUrl();
+			}
+			
+			
+		} catch (Exception e) {
+			logger.error("用户[{}] 认证失败！", username, e);
+			return LOGIN_PAGE;
+		}
+		
+		return DEFAULT_LOGIN_SUCCESS_PAGE;
+	}
 	
 }
