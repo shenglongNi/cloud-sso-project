@@ -101,9 +101,9 @@ public class SingleSignOnAction {
 			cookie.setPath("/idm");
 			response.addCookie(cookie);
 			
-			serviceTicket = centralAuthenticationService.grantServiceTicket(ticketGrantingTicket.getId(), service);
-			logger.info("用户[{}] ST生成成功：{}", username, serviceTicket.getId());
 			if(service != null) {
+				serviceTicket = centralAuthenticationService.grantServiceTicket(ticketGrantingTicket.getId(), service);
+				logger.info("用户[{}] ST生成成功：{}", username, serviceTicket.getId());
 				casResponse = ((WebApplicationService) service).getResponse(serviceTicket.getId());
 				logger.info("[{}] 用户登录认证成功， 重定向目标地址：{}", username, casResponse.getUrl());
 				return "redirect:" + casResponse.getUrl();

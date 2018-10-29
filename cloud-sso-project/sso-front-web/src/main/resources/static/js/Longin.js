@@ -6,7 +6,8 @@ function login(){
     }else if(password==""){
         $.jGrowl("密码不能为空！", { header: '提醒' });
     }else{
-        AjaxFunc();
+//        AjaxFunc();
+    	document.getElementById("loginForm").submit();
     }
 }
 function AjaxFunc()

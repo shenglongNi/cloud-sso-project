@@ -31,6 +31,7 @@ public class FreeMarkerConfig {
 		freeMarkerViewResolver.setExposeSessionAttributes(true);
 		freeMarkerViewResolver.setExposeSpringMacroHelpers(true);
 		freeMarkerViewResolver.setViewClass(FreeMarkerView.class);
+		freeMarkerViewResolver.setContentType("text/html;charset=utf-8");
 		return freeMarkerViewResolver;
 	}
 	
@@ -43,10 +44,8 @@ public class FreeMarkerConfig {
 		configurationFactory.setDefaultEncoding("utf-8");
 		freemarker.template.Configuration createConfiguration = configurationFactory.createConfiguration();
 		configurer.setConfiguration(createConfiguration);
-		
 //		configurer.setFreemarkerSettings(settings);
 		Map<String, Object> variables = Maps.newHashMap();
-		variables.put("baseContext", "/idm");
 		configurer.setFreemarkerVariables(variables);
 		return configurer;
 	}
