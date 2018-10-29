@@ -9,7 +9,6 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.StringUtils;
 import org.jasig.cas.CentralAuthenticationService;
-import org.jasig.cas.authentication.AuthenticationException;
 import org.jasig.cas.authentication.Credential;
 import org.jasig.cas.authentication.RootCasException;
 import org.jasig.cas.authentication.UsernamePasswordCredential;
@@ -17,7 +16,6 @@ import org.jasig.cas.authentication.principal.Response;
 import org.jasig.cas.authentication.principal.Service;
 import org.jasig.cas.authentication.principal.WebApplicationService;
 import org.jasig.cas.ticket.ServiceTicket;
-import org.jasig.cas.ticket.TicketException;
 import org.jasig.cas.ticket.TicketGrantingTicket;
 import org.jasig.cas.web.support.ArgumentExtractor;
 import org.jasig.cas.web.support.WebUtils;
@@ -32,11 +30,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class SingleSignOnAction {
 	
 	
-	private static final String DEFAULT_LOGIN_SUCCESS_PAGE = "default_success";
+	private static final String DEFAULT_LOGIN_SUCCESS_PAGE = "default_login_success";
 
 	private static Logger logger = LoggerFactory.getLogger(SingleSignOnAction.class);
 	
-	private static final String LOGIN_PAGE = "login";
+	private static final String LOGIN_PAGE = "index";
 	
 	@Autowired
 	private List<ArgumentExtractor> argumentExtractor;

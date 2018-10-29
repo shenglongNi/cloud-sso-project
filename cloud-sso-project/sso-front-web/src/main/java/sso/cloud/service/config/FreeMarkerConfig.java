@@ -1,6 +1,7 @@
 package sso.cloud.service.config;
 
 import java.io.IOException;
+import java.util.Map;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,6 +10,8 @@ import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerView;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver;
+
+import com.google.common.collect.Maps;
 
 import freemarker.template.TemplateException;
 
@@ -42,7 +45,9 @@ public class FreeMarkerConfig {
 		configurer.setConfiguration(createConfiguration);
 		
 //		configurer.setFreemarkerSettings(settings);
-//		configurer.setFreemarkerVariables(variables);
+		Map<String, Object> variables = Maps.newHashMap();
+		variables.put("baseContext", "/idm");
+		configurer.setFreemarkerVariables(variables);
 		return configurer;
 	}
 	
