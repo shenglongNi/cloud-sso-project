@@ -6,7 +6,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.hibernate.cfg.annotations.reflection.JPAMetadataProvider;
 
 @Entity
 @Table(name="user_info")
