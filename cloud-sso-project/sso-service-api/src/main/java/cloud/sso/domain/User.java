@@ -6,6 +6,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.cfg.annotations.reflection.JPAMetadataProvider;
+
 @Entity
 @Table(name="user_info")
 public class User {
@@ -14,7 +16,6 @@ public class User {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
-	
 	
 	private String username;
 	

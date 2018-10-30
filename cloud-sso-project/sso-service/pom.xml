@@ -19,5 +19,11 @@
   		<groupId>mysql</groupId>
   		<artifactId>mysql-connector-java</artifactId>
   	</dependency>
+  	
+  	<dependency>
+  		 <groupId>cloud.sso</groupId>
+  		 <artifactId>sso-service-api</artifactId>
+  		 <version>0.0.1-SNAPSHOT</version>
+  	</dependency>
   </dependencies>
 </project>
