@@ -7,6 +7,7 @@ import org.jasig.cas.authentication.principal.Service;
 import org.jasig.cas.authentication.principal.SimpleWebApplicationServiceImpl;
 import org.jasig.cas.ticket.ServiceTicket;
 import org.jasig.cas.ticket.TicketGrantingTicket;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,7 @@ public class CentralAuthenticationServiceTest {
 	CentralAuthenticationService centraAuthenticationService;
 	
 	@Test
+	@Ignore
 	public void testCreateTicketGrantingTicket() {
 		try {
 			
@@ -39,6 +41,7 @@ public class CentralAuthenticationServiceTest {
 	}
 	
 	@Test
+	@Ignore
 	public void testCreateServiceTicket() {
 		try {
 			

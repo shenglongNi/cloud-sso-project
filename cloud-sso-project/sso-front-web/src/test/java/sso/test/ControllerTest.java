@@ -3,6 +3,7 @@ package sso.test;
 import static org.hamcrest.CoreMatchers.equalTo;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.MockitoAnnotations;
@@ -30,7 +31,6 @@ import sso.cloud.web.controller.SingleSignOnAction;
 @AutoConfigureMockMvc
 public class ControllerTest {
 
-	private static Logger logger = LoggerFactory.getLogger(ControllerTest.class);
 	
 	private static final String TEST_LOGIN_URL_WITHOUT_SERVICE = "http://localhost:8080/idm/login.html";
 	private static final String TEST_LOGIN_URL_WITH_SERVICE = "http://localhost:8080/idm/login.html?service=http://localhost:8080/client/shiro-cas";
@@ -58,6 +58,7 @@ public class ControllerTest {
 	}
 	
 	@Test
+	@Ignore
 	public void testLoginWithoutTGCAndService() throws Exception {
 		mvc.perform(MockMvcRequestBuilders.get("/login").accept(MediaType.APPLICATION_FORM_URLENCODED))
 		.andExpect(MockMvcResultMatchers.status().isOk())
@@ -65,12 +66,14 @@ public class ControllerTest {
 	}
 	
 	@Test
+	@Ignore
 	public void testLoginWithoutTGC() throws Exception {
 		mvc.perform(MockMvcRequestBuilders.get("/login?service=http://localhost:8080/idm/test")
 				.accept(MediaType.APPLICATION_FORM_URLENCODED));
 	}
 	
 	@Test
+	@Ignore
 	public void testnloginWithTGCNoService() {
 		
 	}

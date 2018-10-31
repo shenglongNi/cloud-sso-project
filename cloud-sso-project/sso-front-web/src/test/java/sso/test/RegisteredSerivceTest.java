@@ -7,6 +7,7 @@ import org.jasig.cas.services.RegisteredService;
 import org.jasig.cas.services.ServiceRegistryDao;
 import org.jasig.cas.services.ServicesManager;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,12 +27,14 @@ public class RegisteredSerivceTest {
 	ServicesManager servicesManager;
 	
 	@Test
+	@Ignore
 	public void registryDaoTest() {
 		RegisteredService findServiceById = registryDao.findServiceById(1);
 		System.out.println(findServiceById);
 	}
 	
 	@Test
+	@Ignore
 	public void testServiceManager() {
 		try {
 			
