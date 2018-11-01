@@ -10,12 +10,11 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="USER_MOBILE_RELATED")
+@Table(name="user_mobile_related")
 public class UserMobileRelated {
-
 	@Id
-	@Column(name = "ID")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name = "ID")
 	private Long id;
 	
 	@Column(name = "USER_ID")

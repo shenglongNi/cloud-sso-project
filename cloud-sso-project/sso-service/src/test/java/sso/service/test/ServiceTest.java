@@ -19,13 +19,22 @@ public class ServiceTest {
 	
 	@Test
 	public void tesUserMobileRelated() {
-		UserMobileRelated result = userMobileRelatedRepository.findByMobile("15788956654");
-		System.out.println(result);
-//		UserMobileRelated related = new UserMobileRelated();
-//		related.setUserId(10004L);
-//		related.setMobile("15788956654");
-//		userMobileRelatedRepository.save(related);
+		try {
+			UserMobileRelated related = new UserMobileRelated();
+			related.setUserId(10004L);
+			related.setMobile("15788956654");
+			userMobileRelatedRepository.save(related);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
+	}
+	
+	@Test
+	public void testQryByMobile() {
+		UserMobileRelated result = userMobileRelatedRepository.findByMobile("12155246731");
+		System.out.println(result);
 	}
 	
 }
