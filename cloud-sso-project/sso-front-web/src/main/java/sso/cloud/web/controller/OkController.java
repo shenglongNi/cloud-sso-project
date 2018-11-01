@@ -10,4 +10,10 @@ public class OkController {
 	public String Ok() {
 		return "ok";
 	}
+	
+	@RequestMapping("/exception")
+	public String exception() {
+		
+		throw new RuntimeException();
+	}
 }

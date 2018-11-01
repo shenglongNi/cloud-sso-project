@@ -1,5 +1,6 @@
 package sso.service.test;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,23 +19,16 @@ public class ServiceTest {
 	UserMobileRelatedRepository userMobileRelatedRepository;
 	
 	@Test
+	@Ignore
 	public void tesUserMobileRelated() {
-		try {
-			UserMobileRelated related = new UserMobileRelated();
-			related.setUserId(10004L);
-			related.setMobile("15788956654");
-			userMobileRelatedRepository.save(related);
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		UserMobileRelated result = userMobileRelatedRepository.findByMobile("15788956654");
+		System.out.println(result);
+//		UserMobileRelated related = new UserMobileRelated();
+//		related.setUserId(10004L);
+//		related.setMobile("15788956654");
+//		userMobileRelatedRepository.save(related);
 		
 	}
 	
-	@Test
-	public void testQryByMobile() {
-		UserMobileRelated result = userMobileRelatedRepository.findByMobile("12155246731");
-		System.out.println(result);
-	}
-	
 }
+
