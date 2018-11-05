@@ -12,6 +12,11 @@
   <dependencies>
   	
   	<dependency>
+  		<groupId>org.springframework.cloud</groupId>
+  		<artifactId>spring-cloud-starter-eureka</artifactId>
+  	</dependency>
+  	
+  	<dependency>
   		<groupId>cloud.sso</groupId>
 		<artifactId>sso-service-api</artifactId>
     	<version>0.0.1-SNAPSHOT</version>
