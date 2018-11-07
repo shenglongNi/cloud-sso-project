@@ -1,3 +1,4 @@
+
 package sso.core.authentication.auth.authenticator;
 
 import org.jasig.cas.authentication.Credential;

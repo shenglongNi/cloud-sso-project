@@ -1,3 +1,4 @@
+
 package sso.core.authentication.auth.authenticator.spi;
 
 import org.jasig.cas.authentication.Credential;
@@ -23,3 +24,4 @@ public abstract class AbstractAuthenticator implements IAuthenticator{
 	
 	protected abstract boolean authenInner(String loginId, String password) throws Exception;
 }
+

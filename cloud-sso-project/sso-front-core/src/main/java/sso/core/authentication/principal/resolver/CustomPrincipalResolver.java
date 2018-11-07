@@ -1,3 +1,4 @@
+
 package sso.core.authentication.principal.resolver;
 
 import org.jasig.cas.authentication.Credential;
@@ -12,7 +13,5 @@ public class CustomPrincipalResolver extends PersonDirectoryPrincipalResolver{
 		return "112233";
 	}
 
-	
-	
 	
 }

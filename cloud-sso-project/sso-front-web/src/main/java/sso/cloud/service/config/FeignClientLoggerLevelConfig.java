@@ -1,3 +1,4 @@
+
 package sso.cloud.service.config;
 
 import org.springframework.context.annotation.Bean;
@@ -13,3 +14,4 @@ public class FeignClientLoggerLevelConfig {
 		return Logger.Level.FULL;
 	}
 }
+

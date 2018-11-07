@@ -1,3 +1,4 @@
+
 package sso.core.authentication.exception;
 
 public enum LoginFailureType {

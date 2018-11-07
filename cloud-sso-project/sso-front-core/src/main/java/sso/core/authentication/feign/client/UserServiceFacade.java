@@ -1,3 +1,4 @@
+
 package sso.core.authentication.feign.client;
 
 import org.springframework.cloud.netflix.feign.FeignClient;

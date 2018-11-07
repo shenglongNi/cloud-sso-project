@@ -1,3 +1,4 @@
+
 package sso.service.busi.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -9,3 +10,4 @@ public interface UserMobileRelatedRepository extends JpaRepository<UserMobileRel
 
 	UserMobileRelated findByMobile(String mobile);
 }
+

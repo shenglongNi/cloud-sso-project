@@ -1,3 +1,4 @@
+
 package sso.core.authentication.auth.authenticator.spi;
 
 import org.jasig.cas.authentication.Credential;
@@ -8,3 +9,5 @@ public interface IAuthenticator {
 	
 	String getUserId(Credential credential) throws Exception;
 }
+
+
