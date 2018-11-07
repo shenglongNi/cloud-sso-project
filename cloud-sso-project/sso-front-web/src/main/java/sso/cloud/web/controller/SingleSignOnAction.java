@@ -81,15 +81,15 @@ public class SingleSignOnAction {
 	
 	
 	@RequestMapping("/auth")
-	public String loginSubmint(HttpServletRequest request, HttpServletResponse response, String username,
-			String password) {
-		username = "nsl";
-		password = "111111";
+	public String loginSubmint(HttpServletRequest request, HttpServletResponse response) {
 		HttpSession session = request.getSession();
 		logger.info("用户登录认证开始, 当前sessionId:{}", session.getId());
+		String username = request.getParameter("username");
+		String password = request.getParameter("password");
 		Credential credential = new UsernamePasswordCredential(username, password);
 		
 		Service service = (Service) session.getAttribute("service");
+		
 		
 		TicketGrantingTicket ticketGrantingTicket = null;
 		ServiceTicket serviceTicket = null;

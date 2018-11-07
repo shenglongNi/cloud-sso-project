@@ -1,6 +1,6 @@
 function login(){
-    var username = document.getElementById("ID").value;
-    var password = document.getElementById("PASSWORD").value;
+    var username = document.getElementById("username").value;
+    var password = document.getElementById("password").value;
     if(username==""){
         $.jGrowl("用户名不能为空！", { header: '提醒' });
     }else if(password==""){

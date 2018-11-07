@@ -7,9 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import cloud.sso.domain.UserMobileRelated;
-import cloud.sso.repository.UserMobileRelatedRepository;
 import sso.service.SsoServiceApplication;
+import sso.service.busi.repository.UserMobileRelatedRepository;
+import cloud.sso.domain.UserMobileRelated;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = {SsoServiceApplication.class})

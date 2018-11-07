@@ -12,12 +12,18 @@ import org.jasig.cas.authentication.UsernamePasswordCredential;
 import org.jasig.cas.authentication.handler.support.AbstractPreAndPostProcessingAuthenticationHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import sso.core.authentication.auth.service.IAuthenticationService;
 
 @Component
 public class MobileAuthenticationHandler extends AbstractPreAndPostProcessingAuthenticationHandler {
 
 	private static Logger logger = LoggerFactory.getLogger(MobileAuthenticationHandler.class);
+	
+	@Autowired
+	private IAuthenticationService authService;
 	
 	@Override
 	public boolean supports(Credential credential) {
@@ -36,6 +42,13 @@ public class MobileAuthenticationHandler extends AbstractPreAndPostProcessingAut
 			logger.error("用户名为空， 认证失败!");
 			throw new AccountNotFoundException("用户名为空！");
 		}
+		
+		try {
+			authService.authenicate(credential);
+		} catch (Exception e) {
+			throw new GeneralSecurityException();
+		}
+		
 		
 		return createHandlerResult(credential, this.principalFactory.createPrincipal(username), null);
 	}
