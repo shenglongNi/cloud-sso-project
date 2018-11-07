@@ -1,4 +1,4 @@
-package cloud.sso.repository;
+package sso.service.busi.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
