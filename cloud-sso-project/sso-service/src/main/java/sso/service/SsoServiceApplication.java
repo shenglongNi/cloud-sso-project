@@ -8,8 +8,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @EnableDiscoveryClient
 @SpringBootApplication
-@EnableJpaRepositories(basePackages={"sso.service.busi.repository.*"})
-@EntityScan(basePackages = {"cloud.sso.domain"})
+@EnableJpaRepositories(basePackages={"sso.service.busi.*"})
+@EntityScan(basePackages = {"cloud.sso.*"})
 public class SsoServiceApplication {
 	
 	public static void main(String[] args) {

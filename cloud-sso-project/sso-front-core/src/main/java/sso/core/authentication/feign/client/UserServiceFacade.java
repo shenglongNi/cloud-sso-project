@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import cloud.sso.domain.ResultData;
 
-@FeignClient("sso-service")
+@FeignClient(value="sso-service", path="/sso-service")
 public interface UserServiceFacade {
 
-	@RequestMapping("/sso-service/getUserByLoginId")
+	@RequestMapping("/getUserByLoginId")
 	ResultData getUserByLoginId(@RequestParam("loginId") String loginId);
 	
 	
