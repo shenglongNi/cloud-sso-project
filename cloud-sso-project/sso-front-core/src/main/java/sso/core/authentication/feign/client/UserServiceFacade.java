@@ -13,5 +13,6 @@ public interface UserServiceFacade {
 	@RequestMapping("/getUserByLoginId")
 	ResultData getUserByLoginId(@RequestParam("loginId") String loginId);
 	
-	
+	@RequestMapping("/getUserInfoById")
+	ResultData getUserInfoByUserId(@RequestParam("userId") Long userId);
 }

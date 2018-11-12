@@ -19,4 +19,11 @@ public class UserServiceController {
 		
 		return userService.getUserIdByLoginId(login);
 	}
+	
+	
+	@RequestMapping("/getUserInfoById")
+	public ResultData getUserByUserId(@RequestParam("userId") Long userId) {
+		
+		return userService.getUserInfoByUserId(userId);
+	}
 }

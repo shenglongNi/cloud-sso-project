@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import sso.core.authentication.auth.authenticator.spi.AbstractAuthenticator;
 import sso.core.authentication.exception.IdmException;
 import sso.core.authentication.exception.LoginFailureType;
+import cloud.sso.domain.User;
 
 @Component
 public class MobileAuthenticator extends AbstractAuthenticator{
@@ -19,7 +20,13 @@ public class MobileAuthenticator extends AbstractAuthenticator{
 		
 		Long userId = serviceInvoker.getUserIdByMobile(loginId);
 		if(userId == null) {
-			logger.info("[{}]用户不存在！", loginId);
+			logger.info("[{}]用户ID不存在！", loginId);
+			throw new IdmException(LoginFailureType.USER_NOT_EXISTS, loginId + "：用户不存在！");
+		}
+		
+		User user = serviceInvoker.getUser(userId);
+		if(user == null) {
+			logger.info("[{}]用户不存在！", userId);
 			throw new IdmException(LoginFailureType.USER_NOT_EXISTS, loginId + "：用户不存在！");
 		}
 		

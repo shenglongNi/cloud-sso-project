@@ -5,4 +5,6 @@ import cloud.sso.domain.ResultData;
 public interface IUserService {
 	
 	ResultData getUserIdByLoginId(String loginId);
+	
+	ResultData getUserInfoByUserId(Long userId);
 }
