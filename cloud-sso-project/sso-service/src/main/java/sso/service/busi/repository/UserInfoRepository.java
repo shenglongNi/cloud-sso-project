@@ -4,7 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import cloud.sso.domain.User;
 
-public interface UserInfoRepository extends JpaRepository<User, Long>{
+public interface UserInfoRepository {
 
 	User findByUserId(Long userId);
 }

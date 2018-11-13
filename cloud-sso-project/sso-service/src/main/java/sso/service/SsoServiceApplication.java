@@ -6,9 +6,11 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
+import sso.service.busi.custom.repofactory.CustomRepositoryBean;
+
 @EnableDiscoveryClient
 @SpringBootApplication
-@EnableJpaRepositories(basePackages={"sso.service.busi.*"})
+@EnableJpaRepositories(basePackages={"sso.service.busi.*"}, repositoryBaseClass=CustomRepositoryBean.class)
 @EntityScan(basePackages = {"cloud.sso.*"})
 public class SsoServiceApplication {
 	
