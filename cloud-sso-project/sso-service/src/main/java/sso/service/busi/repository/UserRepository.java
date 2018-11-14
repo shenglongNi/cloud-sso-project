@@ -1,10 +1,9 @@
 package sso.service.busi.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-
 import cloud.sso.domain.User;
+import sso.service.busi.custom.repository.CustomRepository;
 
-public interface UserRepository {
+public interface UserRepository extends CustomRepository<User, Long>{
 	
 	User findByUserId(Long userId);
 }

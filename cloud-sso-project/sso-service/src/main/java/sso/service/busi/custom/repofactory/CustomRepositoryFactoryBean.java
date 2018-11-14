@@ -11,11 +11,9 @@ import org.springframework.data.repository.core.support.RepositoryFactorySupport
 
 public class CustomRepositoryFactoryBean<T extends JpaRepository<S, ID>, S, ID extends Serializable> extends JpaRepositoryFactoryBean<T, S, ID>{
 	
-	private EntityManager entityManager;
 	
 	public CustomRepositoryFactoryBean(Class<? extends T> repositoryInterface) {
 		super(repositoryInterface);
-		this.entityManager = entityManager;
 	}
 	
 	

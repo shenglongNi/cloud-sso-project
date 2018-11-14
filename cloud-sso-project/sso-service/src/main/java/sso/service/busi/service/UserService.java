@@ -17,16 +17,16 @@ import com.google.common.collect.Maps;
 @Service
 public class UserService implements IUserService{
 
-//	@Autowired
-//	private UserMobileRelatedRepository userMobileRelatedRepository;
-//	
-//	@Autowired
-//	private UserInfoRepository userInfoRepository;
+	@Autowired
+	private UserMobileRelatedRepository userMobileRelatedRepository;
+	
+	@Autowired
+	private UserInfoRepository userInfoRepository;
 	
 	@Override
 	public ResultData getUserIdByLoginId(String loginId) {
 		ResultData resultData = new ResultData();
-		/*Map<String, Object> dataMap = Maps.newHashMap();
+		Map<String, Object> dataMap = Maps.newHashMap();
 		UserMobileRelated userMobileRelated = userMobileRelatedRepository.findByMobile(loginId);
 		 if(userMobileRelated != null) {
 			 dataMap.put("userId", String.valueOf(userMobileRelated.getUserId()));
@@ -36,7 +36,7 @@ public class UserService implements IUserService{
 			 return resultData;
 		 }
 		 resultData.setReturnCode("210000");
-		 resultData.setReturnMsg("查询无数据");*/
+		 resultData.setReturnMsg("查询无数据");
 		 return resultData;
 	}
 
@@ -44,7 +44,7 @@ public class UserService implements IUserService{
 	public ResultData getUserInfoByUserId(Long userId) {
 		
 		ResultData resultData = new ResultData();
-		/*Map<String, Object> dataMap = Maps.newHashMap();
+		Map<String, Object> dataMap = Maps.newHashMap();
 		
 		User user = userInfoRepository.findByUserId(userId);
 		
@@ -55,7 +55,7 @@ public class UserService implements IUserService{
 			resultData.setReturnMsg("查询成功！");
 		}
 		resultData.setReturnCode("210000");
-		resultData.setReturnMsg("查询无数据");*/
+		resultData.setReturnMsg("查询无数据");
 		return resultData;
 	}
 	

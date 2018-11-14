@@ -19,14 +19,13 @@ public class UserInfoRepositoryTest {
 	UserRepository userRepository;
 	
 	@Test
-	@Ignore
 	public void testSave() {
 		User user = new User();
 		user.setUsername("Vicky");
 		user.setEmail("1509043059@qq.com");
 		user.setSex(0);
 		user.setMobile("15655784490");
-//		userRepository.save(user);
+		userRepository.save(user);
 	}
 	
 	@Test

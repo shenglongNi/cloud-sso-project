@@ -7,7 +7,7 @@ import cloud.sso.domain.User;
 import cloud.sso.domain.UserMobileRelated;
 
 
-public interface UserMobileRelatedRepository {
+public interface UserMobileRelatedRepository extends JpaRepository<UserMobileRelated, Long>{
 
 	UserMobileRelated findByMobile(String mobile);
 	
