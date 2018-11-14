@@ -14,12 +14,15 @@ public class CustomRepositoryImpl<T, ID extends Serializable> extends SimpleJpaR
 	private final EntityManager entityManager;
 	
 	
-	
-	
 	public CustomRepositoryImpl(Class<T> domainClass, EntityManager entityManager) {
 		 super(domainClass, entityManager);
 	        this.entityManager = entityManager;
 		
+	}
+	
+	public CustomRepositoryImpl(JpaEntityInformation<T, ?> entityInformation, EntityManager entityManager) {
+		super(entityInformation, entityManager);
+		this.entityManager = entityManager;
 	}
 
 	@Override
