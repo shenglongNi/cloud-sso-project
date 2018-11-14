@@ -9,11 +9,11 @@ import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 import org.springframework.data.jpa.repository.support.JpaRepositoryFactoryBean;
 import org.springframework.data.repository.core.support.RepositoryFactorySupport;
 
-public class CustomRepositoryBean<T extends JpaRepository<S, ID>, S, ID extends Serializable> extends JpaRepositoryFactoryBean<T, S, ID>{
+public class CustomRepositoryFactoryBean<T extends JpaRepository<S, ID>, S, ID extends Serializable> extends JpaRepositoryFactoryBean<T, S, ID>{
 	
 	private EntityManager entityManager;
 	
-	public CustomRepositoryBean(Class<? extends T> repositoryInterface) {
+	public CustomRepositoryFactoryBean(Class<? extends T> repositoryInterface) {
 		super(repositoryInterface);
 		this.entityManager = entityManager;
 	}
