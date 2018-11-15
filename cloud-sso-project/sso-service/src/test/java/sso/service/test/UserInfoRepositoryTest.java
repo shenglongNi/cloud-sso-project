@@ -7,9 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import cloud.sso.domain.User;
 import sso.service.SsoServiceApplication;
 import sso.service.busi.repository.UserRepository;
+import cloud.sso.domain.User;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes={SsoServiceApplication.class})
@@ -19,6 +19,7 @@ public class UserInfoRepositoryTest {
 	UserRepository userRepository;
 	
 	@Test
+	@Ignore
 	public void testSave() {
 		User user = new User();
 		user.setUsername("Vicky");
