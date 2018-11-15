@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import sso.service.busi.service.UserService;
+import cloud.sso.api.DataExchange;
 import cloud.sso.domain.ResultData;
 
 @RestController
@@ -14,16 +15,19 @@ public class UserServiceController {
 	@Autowired
 	private UserService userService;
 	
+	@Autowired
+	private DataExchange dataExchange;
+	
 	@RequestMapping("/getUserByLoginId")
-	public ResultData getUserIdByLoginId(@RequestParam("loginId") String login) {
+	public String getUserIdByLoginId(@RequestParam("loginId") String login) {
 		
-		return userService.getUserIdByLoginId(login);
+		return dataExchange.jsonSerial(userService.getUserIdByLoginId(login));
 	}
 	
 	
 	@RequestMapping("/getUserInfoById")
-	public ResultData getUserByUserId(@RequestParam("userId") Long userId) {
+	public String getUserByUserId(@RequestParam("userId") Long userId) {
 		
-		return userService.getUserInfoByUserId(userId);
+		return dataExchange.jsonSerial(userService.getUserInfoByUserId(userId));
 	}
 }

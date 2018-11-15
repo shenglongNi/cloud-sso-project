@@ -7,7 +7,6 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import sso.service.busi.custom.repofactory.CustomRepositoryFactoryBean;
-import sso.service.busi.custom.repository.CustomRepositoryImpl;
 
 @EnableDiscoveryClient
 @SpringBootApplication

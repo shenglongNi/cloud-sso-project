@@ -30,7 +30,7 @@ public class MobileAuthenticator extends AbstractAuthenticator{
 			throw new IdmException(LoginFailureType.USER_NOT_EXISTS, loginId + "：用户不存在！");
 		}
 		
-		return false;
+		return true;
 	}
 
 	@Override

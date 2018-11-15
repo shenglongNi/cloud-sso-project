@@ -2,13 +2,15 @@ package cloud.sso.domain;
 
 import java.util.Map;
 
+import com.google.common.collect.Maps;
+
 public class ResultData {
 	
 	private String returnCode;
 	
 	private String returnMsg;
 	
-	private Map<String, Object> data;
+	private Map<String, Object> data = Maps.newHashMap();
 
 	public String getReturnCode() {
 		return returnCode;

@@ -30,7 +30,7 @@ public class UserInfoRepositoryTest {
 	}
 	
 	@Test
-	@Ignore
+//	@Ignore
 	public void testQuery() {
 		User user = userRepository.findByUserId(10004L);
 		System.out.println(user);

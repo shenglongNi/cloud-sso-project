@@ -53,6 +53,7 @@ public class UserService implements IUserService{
 			resultData.setData(dataMap);
 			resultData.setReturnCode("000000");
 			resultData.setReturnMsg("查询成功！");
+			return resultData;
 		}
 		resultData.setReturnCode("210000");
 		resultData.setReturnMsg("查询无数据");

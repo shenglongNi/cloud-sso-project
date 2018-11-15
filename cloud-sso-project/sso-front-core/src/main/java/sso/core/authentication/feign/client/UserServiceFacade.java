@@ -11,8 +11,8 @@ import cloud.sso.domain.ResultData;
 public interface UserServiceFacade {
 
 	@RequestMapping("/getUserByLoginId")
-	ResultData getUserByLoginId(@RequestParam("loginId") String loginId);
+	String getUserByLoginId(@RequestParam("loginId") String loginId);
 	
 	@RequestMapping("/getUserInfoById")
-	ResultData getUserInfoByUserId(@RequestParam("userId") Long userId);
+	String getUserInfoByUserId(@RequestParam("userId") Long userId);
 }

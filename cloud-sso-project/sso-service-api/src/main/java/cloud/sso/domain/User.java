@@ -43,10 +43,10 @@ public class User {
 	private String userStatus;
 	
 	@Column(name = "CRT_TIME")
-	private Timestamp crtTime;
+	private Date crtTime;
 	
 	@Column(name = "LST_UPD_TIME")
-	private Timestamp lastUpdTime;
+	private Date lastUpdTime;
 
 	public Long getUserId() {
 		return userId;
@@ -104,19 +104,19 @@ public class User {
 		this.userStatus = userStatus;
 	}
 
-	public Timestamp getCrtTime() {
+	public Date getCrtTime() {
 		return crtTime;
 	}
 
-	public void setCrtTime(Timestamp crtTime) {
+	public void setCrtTime(Date crtTime) {
 		this.crtTime = crtTime;
 	}
 
-	public Timestamp getLastUpdTime() {
+	public Date getLastUpdTime() {
 		return lastUpdTime;
 	}
 
-	public void setLastUpdTime(Timestamp lastUpdTime) {
+	public void setLastUpdTime(Date lastUpdTime) {
 		this.lastUpdTime = lastUpdTime;
 	}
 
