@@ -30,4 +30,9 @@ public class UserServiceController {
 		
 		return dataExchange.jsonSerial(userService.getUserInfoByUserId(userId));
 	}
+	
+	@RequestMapping("/verifyPwd")
+	public String verifyPwd(@RequestParam("userId") Long userId, @RequestParam("pwd") String pwd) {
+		return dataExchange.jsonSerial(userService.verifyUserPwd(userId, pwd));
+	}
 }

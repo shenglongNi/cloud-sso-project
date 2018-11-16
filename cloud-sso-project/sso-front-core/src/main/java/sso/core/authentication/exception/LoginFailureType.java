@@ -6,6 +6,8 @@ public enum LoginFailureType {
 	
 	USER_NOT_EXISTS(1),
 	
+	WRONG_PWD(2),
+	
 	SYSTEM_EXCEPTION(99);
 	
 	private int code;

@@ -7,4 +7,6 @@ public interface IAuthenticationService {
 
 	
 	boolean authenicate(Credential credential) throws Exception;
+	
+	String getUserId(String loginId) throws Exception;
 }

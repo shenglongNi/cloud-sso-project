@@ -27,4 +27,10 @@ public class AuthenticationServiceImpl implements IAuthenticationService{
 		return authenticator.doAuth(credential);
 	}
 
+	@Override
+	public String getUserId(String loginId) throws Exception {
+		return authenticator.getUserId(loginId);
+	}
+	
+	
 }

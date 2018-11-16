@@ -8,4 +8,6 @@ public interface IServiceInvoker {
 	Long getUserIdByMobile(String mobile);
 	
 	User getUser(Long userId);
+	
+	boolean VerifyPwd(Long userId, String pwd);
 }

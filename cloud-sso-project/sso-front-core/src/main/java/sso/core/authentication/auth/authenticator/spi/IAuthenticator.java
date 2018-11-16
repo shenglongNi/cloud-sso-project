@@ -7,7 +7,7 @@ public interface IAuthenticator {
 
 	boolean doAuth(Credential credential) throws Exception;
 	
-	String getUserId(Credential credential) throws Exception;
+	String getUserId(String loginId) throws Exception;
 }
 
 

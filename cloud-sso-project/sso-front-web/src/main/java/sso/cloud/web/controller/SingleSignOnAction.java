@@ -66,6 +66,8 @@ public class SingleSignOnAction {
 				}
 				
 				return casResponse.getUrl();
+			} else {
+				return DEFAULT_LOGIN_SUCCESS_PAGE;
 			}
 		} else if(service != null){
 			session.setAttribute("service", service);

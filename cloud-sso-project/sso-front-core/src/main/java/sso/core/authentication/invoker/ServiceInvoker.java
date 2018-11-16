@@ -1,5 +1,6 @@
 package sso.core.authentication.invoker;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,6 +36,19 @@ public class ServiceInvoker implements IServiceInvoker{
 			return GsonCreator.createGsonInstance().fromJson(jsonObj.getJSONObject("data").getJSONObject("user").toJSONString(), User.class);
 		}
 		return null;
+	}
+
+
+	@Override
+	public boolean VerifyPwd(Long userId, String pwd) {
+		String jsonResult = userServiceFacade.verifyUserPwd(userId, pwd);
+		JSONObject jsonObj = JSONObject.parseObject(jsonResult);
+		
+		if(StringUtils.equals(jsonObj.getString("returnCode"), "000000")) {
+			return true;
+		}
+		
+		return false;
 	}
 	
 }

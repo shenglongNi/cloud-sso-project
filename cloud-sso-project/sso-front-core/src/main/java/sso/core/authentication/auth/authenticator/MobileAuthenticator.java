@@ -1,7 +1,6 @@
 
 package sso.core.authentication.auth.authenticator;
 
-import org.jasig.cas.authentication.Credential;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -29,15 +28,22 @@ public class MobileAuthenticator extends AbstractAuthenticator{
 			logger.info("[{}]用户不存在！", userId);
 			throw new IdmException(LoginFailureType.USER_NOT_EXISTS, loginId + "：用户不存在！");
 		}
+		handlerUserStatus(user);
 		
+		if(!serviceInvoker.VerifyPwd(userId, password)) {
+			logger.info("[{}]用户密码错误！", userId);
+			throw new IdmException(LoginFailureType.WRONG_PWD, "密码错误");
+		}
+		
+		local.set(userId);
 		return true;
 	}
 
 	@Override
-	public String getUserId(Credential credential) throws Exception {
+	public String getUserId(String loginId) throws Exception {
 		
-		return null;
+		return String.valueOf(local.get());
 	}
-
+	
 
 }

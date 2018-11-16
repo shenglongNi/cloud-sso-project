@@ -15,4 +15,7 @@ public interface UserServiceFacade {
 	
 	@RequestMapping("/getUserInfoById")
 	String getUserInfoByUserId(@RequestParam("userId") Long userId);
+	
+	@RequestMapping("/verifyPwd")
+	String verifyUserPwd(@RequestParam("userId") Long userId, @RequestParam("pwd") String pwd);
 }
