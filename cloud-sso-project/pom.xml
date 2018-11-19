@@ -55,5 +55,6 @@
   	<module>sso-front-web</module>
   	<module>sso-service</module>
   	<module>sso-eureka-server</module>
+  	<module>scenes-A</module>
   </modules>
 </project>

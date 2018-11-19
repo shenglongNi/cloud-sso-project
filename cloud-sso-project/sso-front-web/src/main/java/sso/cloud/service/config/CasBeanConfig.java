@@ -17,7 +17,6 @@ import org.jasig.cas.logout.SamlCompliantLogoutMessageCreator;
 import org.jasig.cas.services.DefaultRegisteredServiceAccessStrategy;
 import org.jasig.cas.services.DefaultServicesManagerImpl;
 import org.jasig.cas.services.InMemoryServiceRegistryDaoImpl;
-import org.jasig.cas.services.RegexRegisteredService;
 import org.jasig.cas.services.RegisteredService;
 import org.jasig.cas.services.ServiceRegistryDao;
 import org.jasig.cas.services.ServicesManager;
@@ -36,13 +35,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import sso.cloud.authentication.handler.MobileAuthenticationHandler;
+import sso.core.authentication.auth.service.IAuthenticationService;
+import sso.core.authentication.principal.resolver.CustomPrincipalResolver;
+import sso.core.authentication.service.registry.UrlBasedRegisteredService;
+
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-
-import sso.cloud.authentication.handler.MobileAuthenticationHandler;
-import sso.core.authentication.principal.resolver.CustomPrincipalResolver;
-import sso.core.authentication.service.registry.UrlBasedRegisteredService;
 
 @Configuration
 public class CasBeanConfig {
@@ -77,11 +77,17 @@ public class CasBeanConfig {
 	}
 	
 	@Bean
-	public AuthenticationManager authenticationManager(AuthenticationHandler mobileAuthenticationHandler) {
+	public AuthenticationManager authenticationManager(AuthenticationHandler mobileAuthenticationHandler, CustomPrincipalResolver customPrincipalResolver) {
 		Map<AuthenticationHandler, PrincipalResolver> handlerResolverMap = Maps.newHashMap();
-		handlerResolverMap.put(mobileAuthenticationHandler, new CustomPrincipalResolver());
+		handlerResolverMap.put(mobileAuthenticationHandler, customPrincipalResolver);
 		AuthenticationManager authManager = new PolicyBasedAuthenticationManager(handlerResolverMap);
 		return authManager;
+	}
+	
+	@Bean
+	public CustomPrincipalResolver customPrincipalResolver() {
+		CustomPrincipalResolver  customPrincipalResolver = new CustomPrincipalResolver();
+		return customPrincipalResolver;
 	}
 	
 	@Bean

@@ -14,7 +14,6 @@ public class CustomPrincipalResolver extends PersonDirectoryPrincipalResolver{
 	
 	private static Logger logger = LoggerFactory.getLogger(CustomPrincipalResolver.class);
 	
-	
 	@Autowired
 	private IAuthenticationService authenticationService;
 	
@@ -22,7 +21,9 @@ public class CustomPrincipalResolver extends PersonDirectoryPrincipalResolver{
 	protected String extractPrincipalId(Credential credential) {
 		
 		try {
-			return authenticationService.getUserId(((UsernamePasswordCredential) credential).getUsername());
+			
+			UsernamePasswordCredential usernameAndPasswordCredential = (UsernamePasswordCredential) credential;
+			return authenticationService.getUserId(usernameAndPasswordCredential.getUsername());
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 		}

@@ -7,4 +7,12 @@
     <relativePath>../sso-parent</relativePath>
   </parent>
   <artifactId>sso-client</artifactId>
+  
+  <dependencies>
+  	<dependency>
+  		<groupId>org.jasig.cas.client</groupId>
+  		<artifactId>cas-client-core</artifactId>
+  		<version>3.4.1</version>
+  	</dependency>
+  </dependencies>
 </project>
