@@ -47,6 +47,7 @@ public class MobileAuthenticationHandler extends AbstractPreAndPostProcessingAut
 		try {
 			authService.authenicate(credential);
 		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
 			throw new GeneralSecurityException();
 		}
 		
