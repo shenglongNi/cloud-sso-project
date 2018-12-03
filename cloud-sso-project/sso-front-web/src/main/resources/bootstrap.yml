@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: sso-front-web
+  cloud:
+    config:
+      profile: dev
+      label: master
+      fail-fast: true
+      discovery:
+        enabled: true
+        service-id: sso-config-server
+
+server:
+  port: 8080
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:1001/eureka/

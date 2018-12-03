@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: sso-config-server
+  cloud:
+    config:
+      server:
+        git:
+          uri: git@github.com:shenglongNi/cloud-sso-project
+          username: shenglongNi
+          password: nsl891106
+          force-pull: true
+          search-paths:
+          - /sso/config
+      label: master
+          
+server:
+  port: 5050
+  context-path: /configServer
+eureka:
+  client:
+    service-url: 
+      defaultZone: http://localhost:1001/eureka/
+        

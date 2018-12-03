@@ -1,9 +1,10 @@
 package sso.cloud.web.controller;
 
-import org.springframework.stereotype.Controller;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
 public class OkController {
 
 	@RequestMapping("/")
@@ -15,5 +16,13 @@ public class OkController {
 	public String exception() {
 		
 		throw new RuntimeException();
+	}
+	
+	@Value("${sso.front.web.test}")
+	private String config;
+	@RequestMapping("/configtest")
+	public String testConfig() {
+		
+		return "config value : " + config;
 	}
 }
