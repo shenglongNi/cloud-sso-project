@@ -1,21 +1,22 @@
 spring:
   application:
     name: sso-config-server
+  profiles:
+    active: dev 
   cloud:
     config:
       server:
         git:
-          uri: git@github.com:shenglongNi/cloud-sso-project
+          uri: git@github.com:shenglongNi/cloud-sso-project.git
           username: shenglongNi
           password: nsl891106
           force-pull: true
-          search-paths:
-          - /sso/config
-      label: master
+          search-paths: sso/config
+#      label: master
           
 server:
   port: 5050
-  context-path: /configServer
+#  context-path: /configServer
 eureka:
   client:
     service-url: 
