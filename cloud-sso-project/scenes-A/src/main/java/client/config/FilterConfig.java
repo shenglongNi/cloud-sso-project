@@ -1,7 +1,5 @@
 package client.config;
 
-import java.util.Map;
-
 import org.jasig.cas.client.authentication.AuthenticationFilter;
 import org.jasig.cas.client.session.SingleSignOutFilter;
 import org.jasig.cas.client.validation.Cas10TicketValidationFilter;
@@ -9,8 +7,6 @@ import org.jasig.cas.client.validation.Cas10TicketValidator;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import com.google.common.collect.Maps;
 
 @Configuration
 public class FilterConfig {
